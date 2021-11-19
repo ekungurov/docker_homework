@@ -5,6 +5,8 @@ services:
     build: ./frontend
     ports:
       - 80:80
+    networks:
+      - public
 
   backend:
      build: ./lib_catalog
@@ -12,6 +14,8 @@ services:
        - 8000:8000
      depends_on:
        - database 
+     networks:
+       - private
 
   database:
     image: postgres:14-alpine
@@ -29,4 +33,9 @@ services:
       timeout: 5s
       retries: 5
       start_period: 10s
+    networks:
+      - private
 
+networks:
+  private:
+  public:
